@@ -1,13 +1,8 @@
 {
   "name": "2e Roller",
   "version": "1.0.0",
-  "manifest_version": 1,
-  "author": "PasztetMS",
-  "action": {
-    "title": "2e Roller",
-    "icon": "/icon.svg",
-    "popover": "/index.html",
-    "width": 380,
-    "height": 520
-  }
+  "description": "Kostkowy roller dla 2nd Edition, integrujący się z Owlbear Rodeo.",
+  "icon": "icon.png",
+  "homepage_url": "https://pasztetms.github.io/2e-roller/",
+  "entry": "index.html"
 }
