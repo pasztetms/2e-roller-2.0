@@ -60,10 +60,87 @@
 
     <div id="local-result" class="wynik"></div>
 
+    <div style="padding:12px; font-family:system-ui,Segoe UI,Roboto,Arial;">
+  <h2>⚔️ 2e Roller</h2>
+
+  <label>
+    Modifier:
+    <input id="modifier" type="number" value="0" style="width:64px" />
+  </label>
+  <button id="rollBtn" onclick="rollD20()">Rzuć d20</button>
+
+  <div style="margin-top:8px;">
+    <small>Wynik pojawi się w okienku.</small>
+  </div>
+</div>
+
+<!-- Modal z wynikiem -->
+<div id="rollModal" aria-hidden="true" style="
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(0.98);
+    min-width:260px;
+    max-width:90%;
+    padding:16px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    background: white;
+    z-index:9999;
+    display:none;
+">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <strong>Wynik rzutu</strong>
+    <button onclick="hideModal()" aria-label="Zamknij">✕</button>
+  </div>
+
+  <div id="rollResult" style="font-size:28px; font-weight:700; text-align:center; padding:12px 0;">
+    <!-- wynik tutaj -->
+  </div>
+
+  <div style="text-align:center; margin-top:12px;">
+    <button onclick="hideModal()">OK</button>
+  </div>
+</div>
+
+<script>
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function showModal(text) {
+  const m = document.getElementById('rollModal');
+  const r = document.getElementById('rollResult');
+  r.textContent = text;
+  m.style.display = 'block';
+  m.setAttribute('aria-hidden','false');
+}
+
+function hideModal() {
+  const m = document.getElementById('rollModal');
+  m.style.display = 'none';
+  m.setAttribute('aria-hidden','true');
+}
+
+function rollD20() {
+  try {
+    const mod = parseInt(document.getElementById('modifier').value) || 0;
+    const die = randInt(1,20);
+    const total = die + mod;
+    const text = `d20: ${die} ${mod>=0?'+':''}${mod} = ${total}`;
+    showModal(text);
+
+    // opcjonalnie: wysyłanie komunikatu do parent (Owlbear) — zobacz niżej
+    // window.parent.postMessage({ type: '2eRoll', die, mod, total }, '*');
+  } catch (e) {
+    showModal('Błąd: ' + e.message);
+  }
+}
+</script>
+
     <script src="https://unpkg.com/@owlbear-rodeo/sdk@2.0.0/dist/index.js"></script>
 
     <script>
-        // Ta funkcja uruchamia się, gdy OBR jest gotowy
         OBR.onReady(async () => {
             
             // Znajdujemy elementy na stronie
