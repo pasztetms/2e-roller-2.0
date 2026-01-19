@@ -74,5 +74,42 @@
       resultBox.value = `Rzut: ${roll} | Wynik: ${result}`;
     };
   </script>
+  
+  <h2>Logowanie</h2>
+
+<div id="loginBox">
+  <input type="text" id="username" placeholder="Login">
+  <input type="password" id="password" placeholder="Hasło">
+  <button id="loginBtn">Zaloguj</button>
+</div>
+
+<div id="app" style="display:none;">
+  <h1>Thac0 Roller</h1>
+  <!-- tu wklej resztę swojej strony -->
+</div>
+
+<script>
+  const loginBox = document.getElementById("loginBox");
+  const app = document.getElementById("app");
+
+  if (localStorage.getItem("loggedIn") === "true") {
+    loginBox.style.display = "none";
+    app.style.display = "block";
+  }
+
+  document.getElementById("loginBtn").onclick = () => {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (user === "admin" && pass === "1234") {
+      localStorage.setItem("loggedIn", "true");
+      loginBox.style.display = "none";
+      app.style.display = "block";
+    } else {
+      alert("Zły login lub hasło");
+    }
+  };
+</script>
+  
 </body>
 </html>
