@@ -28,7 +28,7 @@
   <h1>AD&D 2e Roller 🎲</h1>
   <p>Kliknij, aby rzucić k20</p>
   <button id="rollButton">Rzuć!</button>
-  <div id="result">"resultBox"</div>
+  <input type="text" id="resultBox" readonly>
    <script>
       document.getElementById("rollButton").addEventListener("click", function () {
       const roll = Math.floor(Math.random() * 20) + 1;
