@@ -25,15 +25,54 @@
   </style>
 </head>
 <body>
-  <h1>AD&D 2e Roller 🎲</h1>
-  <p>Kliknij, aby rzucić k20</p>
-  <button id="rollButton">Rzuć!</button>
+  <h1>Thac0 Roller</h1>
+
+  <label>
+    Thac0:
+    <input type="number" id="thac0">
+  </label><br><br>
+
+  <label>
+    Modyfikator siły:
+    <input type="number" id="strMod">
+  </label><br><br>
+
+  <label>
+    Inne modyfikatory:
+    <input type="number" id="otherMod">
+  </label><br><br>
+
+  <button id="rollButton">Rzut</button><br><br>
+
   <input type="text" id="resultBox" readonly>
-   <script>
-      document.getElementById("rollButton").onclick = function () {
+
+  <script>
+    const thac0Input = document.getElementById("thac0");
+    const strModInput = document.getElementById("strMod");
+    const otherModInput = document.getElementById("otherMod");
+    const resultBox = document.getElementById("resultBox");
+
+    // Wczytaj zapamiętane wartości
+    thac0Input.value = localStorage.getItem("thac0") || "";
+    strModInput.value = localStorage.getItem("strMod") || "";
+    otherModInput.value = localStorage.getItem("otherMod") || "";
+
+    // Zapisuj przy zmianie
+    thac0Input.oninput = () => localStorage.setItem("thac0", thac0Input.value);
+    strModInput.oninput = () => localStorage.setItem("strMod", strModInput.value);
+    otherModInput.oninput = () => localStorage.setItem("otherMod", otherModInput.value);
+
+    document.getElementById("rollButton").onclick = function () {
+      const thac0 = Number(thac0Input.value) || 0;
+      const strMod = Number(strModInput.value) || 0;
+      const otherMod = Number(otherModInput.value) || 0;
+
       const roll = Math.floor(Math.random() * 20) + 1;
-      document.getElementById("resultBox").value = roll;
-      });
-    </script>
+      const totalMods = roll + strMod + otherMod;
+      const result = thac0 - totalMods;
+
+      resultBox.value = `Rzut: ${roll} | Wynik: ${result}`;
+    };
+  </script>
 </body>
 </html>
