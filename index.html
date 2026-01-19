@@ -30,6 +30,11 @@
   <button id="rollButton">Rzuć!</button>
   <div id="result"></div>
 
-  <script type="module" src="script.js"></script>
+ <script>
+    document.getElementById("rollButton").addEventListener("click", function () {
+      const roll = Math.floor(Math.random() * 20) + 1;
+      document.getElementById("resultBox").textContent = "Wynik: " + roll;
+    });
+  </script>
 </body>
 </html>
