@@ -30,9 +30,9 @@
   <button id="rollButton">Rzuć!</button>
   <input type="text" id="resultBox" readonly>
    <script>
-      document.getElementById("rollButton").addEventListener("click", function () {
+      document.getElementById("rollButton").onclick = function () {
       const roll = Math.floor(Math.random() * 20) + 1;
-      document.getElementById("resultBox").textContent = "Wynik: " + roll;
+      document.getElementById("resultBox").value = roll;
       });
     </script>
 </body>
